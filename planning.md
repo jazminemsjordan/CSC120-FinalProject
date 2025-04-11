@@ -8,17 +8,17 @@ over; you'll have to use your best judgement to make choices. When you've finish
 
 
 **MAP OF THE AREA**
-                            Capen
-                              |
-                              |
-                              |
-        Quad     — — —      Chapin
-          |                   |
-          |                   |
-          |                   |
+                            Capen                    
+                              |                       
+                              |                         
+                              |                        
+        Quad     — — —      Chapin                     
+          |                   |                      
+          |                   |                       
+          |                   |                         
         Paradise   — — —    Burton   — — —    Neilson  
-            |                 |
-            |                 |
-            |                 |
-        Athletic  — — —   Mendenhall  
+            |                 |                       
+            |                 |                        
+            |                 |                          
+        Athletic  — — —   Mendenhall                        
 
