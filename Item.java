@@ -2,8 +2,8 @@ public class Item extends Thing {
 
     private Place useAt;
 
-    public Item(String name, String desc, Place foundAt, Place useAt) {
-        super(name, desc, foundAt);
+    public Item(String name, String desc, Place foundAt, boolean unlocked, Place useAt) {
+        super(name, desc, foundAt, unlocked);
         this.useAt = useAt;
     }
 

@@ -1,16 +1,9 @@
 import java.util.ArrayList;
+import com.google.common.graph.*;
+
 public class CampusMap {
 
     static ArrayList<Place> places = new ArrayList<Place>();
-    // creating places
-    static Place chapinLawn = new Place("Chapin Lawn", true, "description");
-    static Place capenGarden = new Place("Capen Garden", true, "description");
-    static Place burtonLawn = new Place("Burton Lawn", true, "description");
-    static Place neilsonLawn = new Place("Neilson Lawn", false, "description");
-    static Place mendenhallCourtyard = new Place("Mendenhall Courtyard", true, "description");
-    static Place greatQuadrangle = new Place("Great Quadrangle", true, "description");
-    static Place athleticField = new Place("Athletic Field", true, "description");
-    static Place paradiseWoods = new Place("Paradise Woods", true, "description");
 
     /* Empty constructor */
     // I will only have one map, initialized at the beginning of the program, so a lot of static stuff
@@ -23,7 +16,16 @@ public class CampusMap {
         }
     }
 
-    public static void initializeDirections() { 
+    public static void initializePlaces() { 
+        //setting up places
+        Place chapinLawn = new Place("Chapin Lawn", true, "description");
+        Place capenGarden = new Place("Capen Garden", true, "description");
+        Place burtonLawn = new Place("Burton Lawn", true, "description");
+        Place neilsonLawn = new Place("Neilson Lawn", false, "description");
+        Place mendenhallCourtyard = new Place("Mendenhall Courtyard", true, "description");
+        Place greatQuadrangle = new Place("Great Quadrangle", true, "description");
+        Place athleticField = new Place("Athletic Field", true, "description");
+        Place paradiseWoods = new Place("Paradise Woods", true, "description");
         // setting place directions
         chapinLawn.setDirections("north", capenGarden);
         chapinLawn.setDirections("south", burtonLawn);

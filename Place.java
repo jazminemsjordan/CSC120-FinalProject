@@ -8,11 +8,13 @@ public class Place {
     private String longDesc;
     private Hashtable<String, Place> directions;
     private Hashtable<String, String> fancyDirections;
-    private ArrayList<String> hidingSpots;
+    private ArrayList<HidingSpot> hidingSpots;
 
     /**
      * Constructor for place
      * @param name name of place
+     * @param accessible whether the place can be entered immediately
+     * @param longdesc place description
      */
     public Place(String name, boolean accessible, String longDesc) {
         this.name = name;
@@ -20,24 +22,28 @@ public class Place {
         this.longDesc = longDesc;
         this.directions = new Hashtable<String, Place>();
         this.fancyDirections = new Hashtable<String, String>();
-        this.hidingSpots = new ArrayList<String>();
+        this.hidingSpots = new ArrayList<HidingSpot>();
     }
 
     public String getName() {
         return this.name;
     }
 
+    public boolean isAccessible() {
+        return this.accessible;
+    }
+
     public String getLongDesc() {
         return this.longDesc;
     }
 
-    public void getDirections() {
+    public void printDirections() {
         String directionsList = this.fancyDirections.toString();
         directionsList = directionsList.replace("{", "");
         directionsList = directionsList.replace("}", "");
         directionsList = directionsList.replace("=", ": ");
         String[] formattedList = directionsList.split(", ");
-        for (int i = formattedList.length - 1; i > -1; i--) {
+        for (int i = 0; i < formattedList.length; i++) {
             System.out.println(formattedList[i]);
         }
     }
@@ -47,18 +53,17 @@ public class Place {
         this.fancyDirections.put(s1, p1.getName());
     }
 
-    public void go(String direction) {
-        if (directions.containsKey(direction)) {
-            Place target = directions.get(direction);
-            if (target.accessible == true) {
-                Player.playerLocation = target;
-                System.out.println("You are now at: " + target.name);
-                if (Player.verbose == true) {
-                    System.out.println(target.longDesc);
-                }
-            }
-        } else {
-            throw new RuntimeException("You don't see anywhere to go that way.");            
-        }
+    public Hashtable<String, Place> getDirections() {
+        return this.directions;
+    }
+
+    public void addHidingSpots(HidingSpot h1, HidingSpot h2, HidingSpot h3) {
+        this.hidingSpots.add(h1);
+        this.hidingSpots.add(h2);
+        this.hidingSpots.add(h2);
+    }
+
+    public ArrayList<HidingSpot> getHidingSpots() {
+        return this.hidingSpots;
     }
 }
