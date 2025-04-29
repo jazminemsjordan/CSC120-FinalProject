@@ -6,3 +6,39 @@ Note:  It's a good idea to also make this list available inside the game, in res
 # SPOILER ALERT
 
 If your game includes challenges that must be overcome to win, also list them below.
+
+Scoring!
+Calculation:
+Multiply raw scores by their hiding place values and add to get a base score, then multiply by diversity value.
+base += for each hidden snack, (snack value * hiding place value) 
+base * diversity value = score
+
+PLACES: DIVERSITY    | FOOD: PTS  
+Capen: (1.5, 1.5, 1.25); food found: (grilledCheese[10])
+Quad: (1, 0.75, 0.75); food found: (bagel[10], chicken[10])
+Chapin: (1.25, 1, 0.75); food found: (donut[12], cookie[10])
+Paradise: (1.5, 1.5, 1.25); food found: (plum[8], raspberry[7])
+Burton: (1.5, 1, 1); food found: (appleCore[5])
+Neilson: (1.25, 1, 0.75); food found: (sushiRoll[15])
+Athletic: (1.25, 0.75, 0.75); food found: (proteinBar[10])
+Mendenhall: (1.5, 1.25, 1); food found: (peanut[3], spaghetti[20])
+
+Diversity multiplier: Snacks in...
+4 different places: (0.8)
+5 different places: (0.9)
+6 different places: (1)
+7 different places: (1.1)
+8 different places: (1.2)
+
+Score ending sheet:
+score > 200 = perfect
+200 > score > 180 = great
+180 > score > 150 = good job
+150 > score > 120 = not bad
+120 > score > 60 = rough winter
+60 > score > 0 = awful 
+score == 0 = starved
+
+special ending 
+if hidden snacks == 12 but score < 90
+squirrel goes to college 

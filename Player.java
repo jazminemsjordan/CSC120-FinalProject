@@ -3,9 +3,9 @@ import java.util.Hashtable;
 
 public class Player {
 
-    static protected ArrayList<Snack> foodInventory;
-    static protected ArrayList<Item> itemInventory;
-    static protected Hashtable<Snack, HidingSpot> hiddenSnacks;
+    static protected ArrayList<Snack> foodInventory = new ArrayList<Snack>();
+    static protected ArrayList<Item> itemInventory = new ArrayList<Item>();
+    static protected Hashtable<Snack, HidingSpot> hiddenSnacks = new Hashtable<Snack, HidingSpot>();
     static protected Place playerLocation = CampusMap.places.get(0);
     static protected boolean verbose = false;
 
@@ -24,6 +24,10 @@ public class Player {
 
     }
     
+    /**
+     * Method to change player location
+     * @param direction compass direction (NESW) to move in
+     */
     public static void go(String direction) {
         Hashtable<String, Place> directions = playerLocation.getDirections();
         if (directions.containsKey(direction)) {
@@ -42,9 +46,13 @@ public class Player {
         }
     }
 
+    /**
+     * Method to use item
+     * @param i Item to be used
+     */
     public static void use(Item i) {
         if (itemInventory.contains(i)) {
-            if (playerLocation == i.getUseCase()) {
+            if (playerLocation == i.getUseAt()) {
                 itemInventory.remove(i);
                 i.use();
             } else {
@@ -55,6 +63,11 @@ public class Player {
         }
     }
 
+    /**
+     * Method to hide a snack for the winter
+     * @param s Snack to hide
+     * @param h HidingSpot to hide the snack in
+     */
     public static void hide(Snack s, HidingSpot h) {
         if (foodInventory.contains(s)) {
             ArrayList<HidingSpot> localHidingSpots = playerLocation.getHidingSpots();
@@ -62,7 +75,7 @@ public class Player {
                 if (!hiddenSnacks.contains(h)) {
                     hiddenSnacks.put(s, h);
                     foodInventory.remove(s);
-                    System.out.println("Snack succesfully hidden!");
+                    System.out.println(s.getName() + "succesfully hidden!");
                 } else {
                     throw new RuntimeException("You already have something hidden in this spot.");
                 }
@@ -74,11 +87,28 @@ public class Player {
         }
     }
 
-    public void grab() {
-
+    /**
+     * Method to add a snack to player inventory
+     * @param s Snack to take
+     */
+    public void takeSnack(Snack s) {
+        if (foodInventory.contains(s)) {
+            throw new RuntimeException("You already have this snack!");
+        } else if (hiddenSnacks.containsKey(s)) {
+            hiddenSnacks.remove(s);
+            foodInventory.add(s);
+            System.out.println("Success! Added " + s.getName() + "to inventory.");
+        } else {
+            foodInventory.add(s);
+            System.out.println("Success! Added " + s.getName() + "to inventory.");
+        }
     }
 
-    public void look() {
-        System.out.println(playerLocation.getLongDesc());
+    /**
+     * Method to add an item to player inventory
+     * @param i item to take
+     */
+    public void takeItem(Item i) {
+
     }
 }

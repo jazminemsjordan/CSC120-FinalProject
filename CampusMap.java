@@ -1,9 +1,18 @@
 import java.util.ArrayList;
-import com.google.common.graph.*;
 
 public class CampusMap {
 
     static ArrayList<Place> places = new ArrayList<Place>();
+    
+    //setting up places
+    static Place chapinLawn = new Place("Chapin Lawn", true, "description");
+    static Place capenGarden = new Place("Capen Garden", true, "description");
+    static Place burtonLawn = new Place("Burton Lawn", true, "description");
+    static Place neilsonLawn = new Place("Neilson Lawn", false, "description");
+    static Place mendenhallCourtyard = new Place("Mendenhall Courtyard", true, "description");
+    static Place greatQuadrangle = new Place("Great Quadrangle", true, "description");
+    static Place athleticField = new Place("Athletic Field", true, "description");
+    static Place paradiseWoods = new Place("Paradise Woods", true, "description");
 
     /* Empty constructor */
     // I will only have one map, initialized at the beginning of the program, so a lot of static stuff
@@ -17,15 +26,6 @@ public class CampusMap {
     }
 
     public static void initializePlaces() { 
-        //setting up places
-        Place chapinLawn = new Place("Chapin Lawn", true, "description");
-        Place capenGarden = new Place("Capen Garden", true, "description");
-        Place burtonLawn = new Place("Burton Lawn", true, "description");
-        Place neilsonLawn = new Place("Neilson Lawn", false, "description");
-        Place mendenhallCourtyard = new Place("Mendenhall Courtyard", true, "description");
-        Place greatQuadrangle = new Place("Great Quadrangle", true, "description");
-        Place athleticField = new Place("Athletic Field", true, "description");
-        Place paradiseWoods = new Place("Paradise Woods", true, "description");
         // setting place directions
         chapinLawn.setDirections("north", capenGarden);
         chapinLawn.setDirections("south", burtonLawn);
@@ -45,6 +45,15 @@ public class CampusMap {
         paradiseWoods.setDirections("north", greatQuadrangle);
         paradiseWoods.setDirections("east", burtonLawn);
         paradiseWoods.setDirections("south", athleticField);
+        //setting place hiding spots
+        chapinLawn.addHidingSpots(Assets.masterHidingSpots.get(0), Assets.masterHidingSpots.get(1), Assets.masterHidingSpots.get(2));
+        capenGarden.addHidingSpots(Assets.masterHidingSpots.get(3), Assets.masterHidingSpots.get(4), Assets.masterHidingSpots.get(5));
+        burtonLawn.addHidingSpots(Assets.masterHidingSpots.get(6), Assets.masterHidingSpots.get(7), Assets.masterHidingSpots.get(8));
+        neilsonLawn.addHidingSpots(Assets.masterHidingSpots.get(9), Assets.masterHidingSpots.get(10), Assets.masterHidingSpots.get(11));
+        mendenhallCourtyard.addHidingSpots(Assets.masterHidingSpots.get(12), Assets.masterHidingSpots.get(13), Assets.masterHidingSpots.get(14));
+        greatQuadrangle.addHidingSpots(Assets.masterHidingSpots.get(15), Assets.masterHidingSpots.get(16), Assets.masterHidingSpots.get(17));
+        athleticField.addHidingSpots(Assets.masterHidingSpots.get(18), Assets.masterHidingSpots.get(19), Assets.masterHidingSpots.get(20));
+        paradiseWoods.addHidingSpots(Assets.masterHidingSpots.get(21), Assets.masterHidingSpots.get(22), Assets.masterHidingSpots.get(23));
         // adding places to map
         places.add(chapinLawn);
         places.add(capenGarden);

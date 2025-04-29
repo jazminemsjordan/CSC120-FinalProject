@@ -23,18 +23,4 @@ over; you'll have to use your best judgement to make choices. When you've finish
         Athletic  — — —   Mendenhall                        
 
 
-Player
-  - takeSnack
-  - hideSnack
 
-Place 
-  - showOptions
-  - look
-  - search
-  - watch 
-  - hashmap<hiding places; secret stash value>
-Map  
-  - go
-Snack
-  *foodValue
-  *stashValue
