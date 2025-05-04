@@ -29,7 +29,7 @@ public class Snack extends Thing {
      * @return the hiding spot the snack is hidden at, throws exception if snack isn't hidden
      */
     public HidingSpot getStashedAt() {
-        if (Player.hiddenSnacks.contains(this)) {
+        if (Player.hiddenSnacks.containsKey(this)) {
             this.stashedAt = Player.hiddenSnacks.get(this);
             return this.stashedAt;
         } else {

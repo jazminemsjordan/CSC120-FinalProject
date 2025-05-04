@@ -8,10 +8,14 @@ public class CommandReader {
     public static String[] goInput = {"go", "g", "move", "walk", "travel", "head"};
     public static String[] directionalInput = {"north", "n", "east", "e", "south", "s", "west", "w"};
     public static String[] takeInput = {"take", "grab", "get"};
-    public static String[] lookInput = {"look", "check", "examine"};
-    public static String[] snackInput = {};
-    public static String[] itemInput = {};
+    public static String[] lookInput = {"look", "check", "examine", "consider"};
+    public static String[] snackInput = {"snack", "spaghetti", "donut", "maple", "chicken", "drumstick", "sushi", "sandwich", "cheese", "bagel", "cookie", "granola", "protein", "plum", "raspberry", "berry", "apple", "peanut"};
+    public static String[] itemInput = {"placeholder"};
+    public static String[] hideInput = {"hide", "stash", "bury"};
+    public static String[] hidingSpotInput = {"1", "2", "3", "one", "two", "three"};
+    public static String[] endInput = {"end", "done", "sleep", "finish"};
     public static Scanner inputScanner = new Scanner(System.in);
+    public static Scanner confirmationScanner = new Scanner(System.in);
 
     /*
      * Empty constructor
@@ -28,7 +32,7 @@ public class CommandReader {
         // remove filler words
         for (int i = 0; i < command.size(); i++) {
             String c = command.get(i);
-            if (c == "at" || c == "the" || c == "to") {
+            if (c.equals("at") || c.equals("the") || c.equals("at") || c.equals("in")) {
                 command.remove(i);
             }
         }
@@ -37,6 +41,64 @@ public class CommandReader {
         ArrayList<String> parameters = new ArrayList<String>();
         for (int i = 1; i < command.size(); i++) {
             parameters.add(command.get(i));
+        }
+        if (parameters.size() == 0) {
+            parameters.add("NULL");
+        }
+        // checking for snacks and items 
+        boolean snackCommand = false;
+        boolean itemCommand = false;
+        Snack snack = null;
+        Item item = null;
+        int count = 0;
+        for (int i = 0; i < parameters.size(); i++) {
+            if (Arrays.asList(snackInput).contains(parameters.get(i))) {
+                snackCommand = true;
+                count++;
+            }
+        }
+        for (int i = 0; i < parameters.size(); i++) {
+            if (Arrays.asList(itemInput).contains(parameters.get(i))) {
+                itemCommand = true;
+            }
+        }
+        // overwhelmed input, can't choose
+        if (snackCommand == true && itemCommand == true || count > 1) {
+            throw new RuntimeException("Your squirrel brain can't work with that much input! Try a simpler command, with only one item or snack at a time.");
+        }
+        // if the command relates to snacks, set what the snack is in advance for all commands
+        if (snackCommand == true) {
+            if (parameters.contains("spaghetti")) {
+                snack = Assets.masterSnacks.get(0);
+            } else if (parameters.contains("sushi")) {
+                snack = Assets.masterSnacks.get(1);
+            } else if (parameters.contains("donut") || parameters.contains("maple")) {
+                snack = Assets.masterSnacks.get(2);
+            } else if (parameters.contains("sandwich") || parameters.contains("cheese")) {
+                snack = Assets.masterSnacks.get(3);
+            } else if (parameters.contains("bagel")) {
+                snack = Assets.masterSnacks.get(4);
+            } else if (parameters.contains("chicken") || parameters.contains("drumstick")) {
+                snack = Assets.masterSnacks.get(5);
+            } else if (parameters.contains("cookie")) {
+                snack = Assets.masterSnacks.get(6);
+            } else if (parameters.contains("granola") || parameters.contains("protein")) {
+                snack = Assets.masterSnacks.get(7);
+            } else if (parameters.contains("plum")) {
+                snack = Assets.masterSnacks.get(8);
+            } else if (parameters.contains("raspberry") || parameters.contains("berry")) {
+                snack = Assets.masterSnacks.get(9);
+            } else if (parameters.contains("apple")) {
+                snack = Assets.masterSnacks.get(10);
+            } else if (parameters.contains("peanut")) {
+                snack = Assets.masterSnacks.get(11);
+            }
+            if (snack == null) {
+
+            }
+        }
+        if (itemCommand == true) {
+
         }
         // beginning command reading
         // go command
@@ -66,47 +128,20 @@ public class CommandReader {
         // look at environment or object
         } else if (Arrays.asList(lookInput).contains(baseCommand)) {
             // check if player is looking at snack
-            if (Arrays.asList(snackInput).contains(parameters.get(0))) {
-                //set snack to null, change based on parameter
-                Snack s = null;
-                if (parameters.contains("spaghetti")) {
-                    s = Assets.masterSnacks.get(0);
-                } else if (parameters.contains("sushi")) {
-                    s = Assets.masterSnacks.get(1);
-                } else if (parameters.contains("donut") || parameters.contains("maple")) {
-                    s = Assets.masterSnacks.get(2);
-                } else if (parameters.contains("sandwich") || parameters.contains("cheese")) {
-                    s = Assets.masterSnacks.get(3);
-                } else if (parameters.contains("bagel")) {
-                    s = Assets.masterSnacks.get(4);
-                } else if (parameters.contains("chicken") || parameters.contains("drumstick")) {
-                    s = Assets.masterSnacks.get(5);
-                } else if (parameters.contains("cookie")) {
-                    s = Assets.masterSnacks.get(6);
-                } else if (parameters.contains("granola") || parameters.contains("protein")) {
-                    s = Assets.masterSnacks.get(7);
-                } else if (parameters.contains("plum")) {
-                    s = Assets.masterSnacks.get(8);
-                } else if (parameters.contains("raspberry") || parameters.contains("berry")) {
-                    s = Assets.masterSnacks.get(9);
-                } else if (parameters.contains("apple")) {
-                    s = Assets.masterSnacks.get(10);
-                } else if (parameters.contains("peanut")) {
-                    s = Assets.masterSnacks.get(11);
-                }
+            if (snackCommand == true) {
                 // s should always be changed with snackInput, so exception thrown is a code based error
-                if (s == null) {
+                if (snack == null) {
                     throw new RuntimeException("This is an error!");
                 } else {
                     // if player has s, give its description, otherwise give user an error
-                    if (Player.foodInventory.contains(s)) {
-                        System.out.println(s.getDesc());
+                    if (Player.foodInventory.contains(snack)) {
+                        System.out.println(snack.getDesc());
                     } else {
                         throw new RuntimeException("Are you sure you have that on you? You can't look at an object you don't have!");
                     }
                 }
             // check if player is looking at item
-            } else if (Arrays.asList(itemInput).contains(parameters.get(0))) {
+            } else if (itemCommand = true) {
                 // to be edited: item check works the same as 
 
             } else {
@@ -116,11 +151,11 @@ public class CommandReader {
                 if (Player.getPlayerLocation() == CampusMap.chapinLawn) {
                     System.out.println(CampusMap.chapinLawn.getLongDesc());
                     if (!Player.hiddenSnacks.containsKey(Assets.masterSnacks.get(2)) && !Player.foodInventory.contains(Assets.masterSnacks.get(2))) {
-                        System.out.println("there is a donut");
+                        System.out.println("A donut has fallen onto the grass.");
                     } 
                     if (!Player.hiddenSnacks.containsKey(Assets.masterSnacks.get(6)) && !Player.foodInventory.contains(Assets.masterSnacks.get(6))) {
                         if (Assets.masterSnacks.get(6).getUnlocked() == true) {
-                            System.out.println("there is a cookie you can reach");
+                            System.out.println("There is a cookie you can reach.");
                         } else {
                             System.out.println("you see a cookie but you can't reach it");
                         }
@@ -128,28 +163,28 @@ public class CommandReader {
                 } else if (Player.getPlayerLocation() == CampusMap.capenGarden) {
                     System.out.println(CampusMap.capenGarden.getLongDesc());
                     if (!Player.hiddenSnacks.containsKey(Assets.masterSnacks.get(3)) && !Player.foodInventory.contains(Assets.masterSnacks.get(3))) {
-                        System.out.println("you see a grilled cheese");
+                        System.out.println("You see a grilled cheese on a bench.");
                     }
                 } else if (Player.getPlayerLocation() == CampusMap.burtonLawn) {
                     System.out.println(CampusMap.burtonLawn.getLongDesc());
                     if (!Player.hiddenSnacks.containsKey(Assets.masterSnacks.get(10)) && !Player.foodInventory.contains(Assets.masterSnacks.get(10))) {
-                        System.out.println("there's an apple core in the trash");
+                        System.out.println("There's an apple core in the trash.");
                     }
                 } else if (Player.getPlayerLocation() == CampusMap.neilsonLawn) {
                     System.out.println(CampusMap.neilsonLawn.getLongDesc());
                     if (!Player.hiddenSnacks.containsKey(Assets.masterSnacks.get(1)) && !Player.foodInventory.contains(Assets.masterSnacks.get(1))) {
-                        System.out.println("there is a sushi roll in sight");
+                        System.out.println("You see an unattended sushi roll on a picnic table.");
                     }
                 } else if (Player.getPlayerLocation() == CampusMap.mendenhallCourtyard) {
                     System.out.println(CampusMap.mendenhallCourtyard.getLongDesc());
                     if (!Player.hiddenSnacks.containsKey(Assets.masterSnacks.get(11)) && !Player.foodInventory.contains(Assets.masterSnacks.get(11))) {
-                        System.out.println("a theater student tosses a peanut your way");
+                        System.out.println("A theater student tosses a peanut your way");
                     } 
                     if (!Player.hiddenSnacks.containsKey(Assets.masterSnacks.get(0)) && !Player.foodInventory.contains(Assets.masterSnacks.get(0))) {
                         if (Assets.masterSnacks.get(0).getUnlocked() == true) {
                             System.out.println("there's a plate of spaghetti behind the closed window");
                         } else {
-                            System.out.println("the window is open, leaving spaghetti ripe for the taking.");
+                            System.out.println("The window is open, leaving a plate of spaghetti ripe for the taking.");
                         }
                     }
                 } else if (Player.getPlayerLocation() == CampusMap.greatQuadrangle) {
@@ -170,7 +205,7 @@ public class CommandReader {
                         System.out.println("A student left a protein bar on the bench. Still wrapped! Perfect for winter.");
                     }
                 } else if (Player.getPlayerLocation() == CampusMap.paradiseWoods) {
-                    System.out.println("");
+                    System.out.println(CampusMap.paradiseWoods.getLongDesc());
                     if (!Player.hiddenSnacks.containsKey(Assets.masterSnacks.get(8)) && !Player.foodInventory.contains(Assets.masterSnacks.get(8))) {
                         System.out.println("A ripe plum hangs from a tree. You could climb up and grab it.");
                     } 
@@ -182,6 +217,128 @@ public class CommandReader {
                         }
                     }
                 }
+                Place location = Player.getPlayerLocation();
+                System.out.println("You see three places here you could hide things:");
+                location.printHidingSpots();
+                System.out.println("You can go these places from here:");
+                location.printDirections();
+
+            }
+        // take command
+        } else if (Arrays.asList(takeInput).contains(baseCommand)) {
+            if (snackCommand = true) {
+                // call to Player method
+                Player.takeSnack(snack);
+            } else if (itemCommand = true) {
+                Player.takeItem(item);
+            } else {
+                throw new RuntimeException("I don't know what you're trying to take!");
+            }
+        // hide command
+        } else if (Arrays.asList(hideInput).contains(baseCommand)) {
+            boolean hidingSpotCommand = false;
+            // cross check parameters with hiding place numbers for inclusivity (any number in any spot will work, as opposed to a certain index)
+            for (int i = 0; i < parameters.size(); i++) {
+                for (int j = 0; j < hidingSpotInput.length; j++) {
+                    // for each item in parameters and hiding spot input, if one pair matches, command is true and can run
+                    String s1 = parameters.get(i);
+                    String s2 = Arrays.asList(hidingSpotInput).get(j);
+                    if (s1.equals(s2)) {
+                        hidingSpotCommand = true;
+                    }
+                }
+            }
+            // error handling
+            if (snackCommand == false && hidingSpotCommand == false) {
+                throw new RuntimeException("I don't know what you're trying to hide or where you're trying to hide it");
+            } else if (snackCommand == false && hidingSpotCommand == true) {
+                throw new RuntimeException("I don't know what you're trying to hide!");
+            } else if (hidingSpotCommand == false && snackCommand == true) {
+                throw new RuntimeException("I don't know where you're trying to hide that!");
+            // actual snack hiding if there is both a snack and a hiding spot
+            } else if (hidingSpotCommand == true && hidingSpotCommand == true) {
+                // setting up hiding spots
+                HidingSpot h = null;
+                if (Player.getPlayerLocation() == CampusMap.chapinLawn) {
+                    if (parameters.contains("1") || parameters.contains("one")) {
+                        h = Assets.masterHidingSpots.get(0);
+                    } else if (parameters.contains("2") || parameters.contains("two")) {
+                        h = Assets.masterHidingSpots.get(1);
+                    } else if (parameters.contains("3") || parameters.contains("three")) {
+                        h = Assets.masterHidingSpots.get(2);
+                    }
+                } else if (Player.getPlayerLocation() == CampusMap.capenGarden) {
+                    if (parameters.contains("1") || parameters.contains("one")) {
+                        h = Assets.masterHidingSpots.get(3);
+                    } else if (parameters.contains("2") || parameters.contains("two")) {
+                        h = Assets.masterHidingSpots.get(4);
+                    } else if (parameters.contains("3") || parameters.contains("three")) {
+                        h = Assets.masterHidingSpots.get(5);
+                    }
+                } else if (Player.getPlayerLocation() == CampusMap.burtonLawn) {
+                    if (parameters.contains("1") || parameters.contains("one")) {
+                        h = Assets.masterHidingSpots.get(6);
+                    } else if (parameters.contains("2") || parameters.contains("two")) {
+                        h = Assets.masterHidingSpots.get(7);
+                    } else if (parameters.contains("3") || parameters.contains("three")) {
+                        h = Assets.masterHidingSpots.get(8);
+                    }
+                } else if (Player.getPlayerLocation() == CampusMap.neilsonLawn) {
+                    if (parameters.contains("1") || parameters.contains("one")) {
+                        h = Assets.masterHidingSpots.get(9);
+                    } else if (parameters.contains("2") || parameters.contains("two")) {
+                        h = Assets.masterHidingSpots.get(10);
+                    } else if (parameters.contains("3") || parameters.contains("three")) {
+                        h = Assets.masterHidingSpots.get(11);
+                    }
+                } else if (Player.getPlayerLocation() == CampusMap.mendenhallCourtyard) {
+                    if (parameters.contains("1") || parameters.contains("one")) {
+                        h = Assets.masterHidingSpots.get(12);
+                    } else if (parameters.contains("2") || parameters.contains("two")) {
+                        h = Assets.masterHidingSpots.get(13);
+                    } else if (parameters.contains("3") || parameters.contains("three")) {
+                        h = Assets.masterHidingSpots.get(14);
+                    }
+                } else if (Player.getPlayerLocation() == CampusMap.greatQuadrangle) {
+                    if (parameters.contains("1") || parameters.contains("one")) {
+                        h = Assets.masterHidingSpots.get(15);
+                    } else if (parameters.contains("2") || parameters.contains("two")) {
+                        h = Assets.masterHidingSpots.get(16);
+                    } else if (parameters.contains("3") || parameters.contains("three")) {
+                        h = Assets.masterHidingSpots.get(17);
+                    }
+                } else if (Player.getPlayerLocation() == CampusMap.athleticField) {
+                    if (parameters.contains("1") || parameters.contains("one")) {
+                        h = Assets.masterHidingSpots.get(18);
+                    } else if (parameters.contains("2") || parameters.contains("two")) {
+                        h = Assets.masterHidingSpots.get(19);
+                    } else if (parameters.contains("3") || parameters.contains("three")) {
+                        h = Assets.masterHidingSpots.get(20);
+                    }
+                } else if (Player.getPlayerLocation() == CampusMap.paradiseWoods) {
+                    if (parameters.contains("1") || parameters.contains("one")) {
+                        h = Assets.masterHidingSpots.get(21);
+                    } else if (parameters.contains("2") || parameters.contains("two")) {
+                        h = Assets.masterHidingSpots.get(22);
+                    } else if (parameters.contains("3") || parameters.contains("three")) {
+                        h = Assets.masterHidingSpots.get(23);
+                    }
+                }
+                // run hide command
+                Player.hide(snack, h);
+            }
+        } else if (baseCommand.equals("sleep")) {
+            if (Player.getPlayerLocation() == CampusMap.chapinLawn) {
+                System.out.println("Are you sure you're done? By going to sleep, the game will finish and your points will be tallied. Note: snacks in your inventory do not count! Make sure you've hidden everything you've found.");
+                String input = confirmationScanner.nextLine();
+                String confirm = input.substring(0, 1);
+                if (confirm == "y") {
+                    Game.end = true;
+                } else {
+                    throw new RuntimeException("Ending cancelled! Feel free to collect more snacks or pick up and rehide anything you want to move. Return to Chapin and sleep to finish the game.");
+                }
+            } else {
+                throw new RuntimeException("You can't end the game and sleep until you've returned to your nest at Chapin Lawn.");
             }
         }
     }

@@ -12,11 +12,20 @@ public class HidingSpot {
         this.value = value;
     }
 
-    public double getValue() {
-        return this.value;
+    public String getName() {
+        return this.name;
+    }
+
+    public String getDesc() {
+        return this.desc;
     }
 
     public Place getPlace() {
         return this.place;
     }
+
+    public double getValue() {
+        return this.value;
+    }
+
 }

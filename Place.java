@@ -60,10 +60,17 @@ public class Place {
     public void addHidingSpots(HidingSpot h1, HidingSpot h2, HidingSpot h3) {
         this.hidingSpots.add(h1);
         this.hidingSpots.add(h2);
-        this.hidingSpots.add(h2);
+        this.hidingSpots.add(h3);
     }
 
     public ArrayList<HidingSpot> getHidingSpots() {
         return this.hidingSpots;
+    }
+
+    public void printHidingSpots() {
+        for (int i = 0; i < 3; i++) {
+            HidingSpot h = this.hidingSpots.get(i);
+            System.out.println("     - " + h.getName() + ": " + h.getDesc());
+        }
     }
 }

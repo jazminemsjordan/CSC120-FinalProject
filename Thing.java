@@ -16,6 +16,7 @@ abstract class Thing {
         this.name = name;
         this.desc = desc;
         this.foundAt = foundAt;
+        this.unlocked = unlocked;
     }
 
     /**
@@ -36,7 +37,7 @@ abstract class Thing {
 
     /**
      * Accessor for foundAt variable
-     * @return the place the snack is originally found at
+     * @return the place the thing is originally found at
      */
     public Place getFoundAt() {
         return this.foundAt;
@@ -44,7 +45,7 @@ abstract class Thing {
 
     /**
      * Accessor for unlocked variable
-     * @return boolean, whether the snack is unlocked and can be taken
+     * @return boolean, whether the thing is unlocked and can be taken
      */
     public boolean getUnlocked() {
         return this.unlocked;

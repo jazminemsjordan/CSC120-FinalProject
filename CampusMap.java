@@ -5,14 +5,14 @@ public class CampusMap {
     static ArrayList<Place> places = new ArrayList<Place>();
     
     //setting up places
-    static Place chapinLawn = new Place("Chapin Lawn", true, "description");
-    static Place capenGarden = new Place("Capen Garden", true, "description");
-    static Place burtonLawn = new Place("Burton Lawn", true, "description");
-    static Place neilsonLawn = new Place("Neilson Lawn", false, "description");
+    static Place chapinLawn = new Place("Chapin Lawn", true, "Students frolic on the beautiful lawn outside Chapin house.");
+    static Place capenGarden = new Place("Capen Garden", true, "The garden is quiet and peaceful, mostly empty of students.");
+    static Place burtonLawn = new Place("Burton Lawn", true, "This lawn outside the science buildings is mostly empty during mountain day.");
+    static Place neilsonLawn = new Place("Neilson Lawn", true, "Outside the library, students sit reading on the lawn.");
     static Place mendenhallCourtyard = new Place("Mendenhall Courtyard", true, "description");
-    static Place greatQuadrangle = new Place("Great Quadrangle", true, "description");
-    static Place athleticField = new Place("Athletic Field", true, "description");
-    static Place paradiseWoods = new Place("Paradise Woods", true, "description");
+    static Place greatQuadrangle = new Place("Great Quadrangle", true, "The quad is packed with students, as usual.");
+    static Place athleticField = new Place("Athletic Field", true, "The athletic field is completely deserted: guess the athletes are out celebrating Mountain Day.");
+    static Place paradiseWoods = new Place("Paradise Woods", true, "The woods by the pond are serene.");
 
     /* Empty constructor */
     // I will only have one map, initialized at the beginning of the program, so a lot of static stuff

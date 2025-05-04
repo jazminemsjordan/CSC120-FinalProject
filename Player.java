@@ -75,7 +75,7 @@ public class Player {
                 if (!hiddenSnacks.contains(h)) {
                     hiddenSnacks.put(s, h);
                     foodInventory.remove(s);
-                    System.out.println(s.getName() + "succesfully hidden!");
+                    System.out.println(s.getName() + " succesfully hidden!");
                 } else {
                     throw new RuntimeException("You already have something hidden in this spot.");
                 }
@@ -91,16 +91,16 @@ public class Player {
      * Method to add a snack to player inventory
      * @param s Snack to take
      */
-    public void takeSnack(Snack s) {
+    public static void takeSnack(Snack s) {
         if (foodInventory.contains(s)) {
             throw new RuntimeException("You already have this snack!");
         } else if (hiddenSnacks.containsKey(s)) {
             hiddenSnacks.remove(s);
             foodInventory.add(s);
-            System.out.println("Success! Added " + s.getName() + "to inventory.");
+            System.out.println("Success! Retrieved from hiding spot. Added " + s.getName() + " to inventory.");
         } else {
             foodInventory.add(s);
-            System.out.println("Success! Added " + s.getName() + "to inventory.");
+            System.out.println("Success! Added " + s.getName() + " to inventory.");
         }
     }
 
@@ -108,7 +108,7 @@ public class Player {
      * Method to add an item to player inventory
      * @param i item to take
      */
-    public void takeItem(Item i) {
+    public static void takeItem(Item i) {
 
     }
 }
