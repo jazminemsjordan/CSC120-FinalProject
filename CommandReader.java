@@ -10,7 +10,7 @@ public class CommandReader {
     public static String[] takeInput = {"take", "grab", "get"};
     public static String[] lookInput = {"look", "check", "examine", "consider"};
     public static String[] snackInput = {"snack", "spaghetti", "donut", "maple", "chicken", "drumstick", "sushi", "sandwich", "cheese", "bagel", "cookie", "granola", "protein", "plum", "raspberry", "berry", "apple", "peanut"};
-    public static String[] itemInput = {"placeholder"};
+    public static String[] itemInput = {"file", "screwdriver", "knife", "whistle", "hat", "helmet"};
     public static String[] hideInput = {"hide", "stash", "bury"};
     public static String[] hidingSpotInput = {"1", "2", "3", "one", "two", "three"};
     public static String[] endInput = {"end", "done", "sleep", "finish"};
@@ -94,11 +94,24 @@ public class CommandReader {
                 snack = Assets.masterSnacks.get(11);
             }
             if (snack == null) {
-
+                throw new RuntimeException("Error with snack detection.");
             }
         }
         if (itemCommand == true) {
-
+            if (parameters.contains("whistle")) {
+                item = Assets.masterItems.get(0);
+            } else if (parameters.contains("knife")) {
+                item = Assets.masterItems.get(1);
+            } else if (parameters.contains("file")) {
+                item = Assets.masterItems.get(2);
+            } else if (parameters.contains("screwdriver")) {
+                item = Assets.masterItems.get(3);
+            } else if (parameters.contains("helmet") || parameters.contains("hat")) {
+                item = Assets.masterItems.get(4);
+            }
+            if (item == null) {
+                throw new RuntimeException("Error with item detection.");
+            }
         }
         // beginning command reading
         // go command
@@ -129,21 +142,18 @@ public class CommandReader {
         } else if (Arrays.asList(lookInput).contains(baseCommand)) {
             // check if player is looking at snack
             if (snackCommand == true) {
-                // s should always be changed with snackInput, so exception thrown is a code based error
-                if (snack == null) {
-                    throw new RuntimeException("This is an error!");
+                if (Player.foodInventory.contains(snack)) {
+                    System.out.println(snack.getDesc());
                 } else {
-                    // if player has s, give its description, otherwise give user an error
-                    if (Player.foodInventory.contains(snack)) {
-                        System.out.println(snack.getDesc());
-                    } else {
-                        throw new RuntimeException("Are you sure you have that on you? You can't look at an object you don't have!");
-                    }
+                    throw new RuntimeException("Are you sure you have that on you? You can't look at a snack you don't have! Try the take command first.");
                 }
             // check if player is looking at item
             } else if (itemCommand = true) {
-                // to be edited: item check works the same as 
-
+                if (Player.itemInventory.contains(item)) {
+                    System.out.println(item.getDesc());
+                } else {
+                    throw new RuntimeException("Are you sure you have that on you? You can't look at an item you don't have! Try the take command first.");
+                }
             } else {
                 // if you aren't looking at anything in specific, look at location 
                 // for each if else loop: one description is always read for each location
@@ -222,7 +232,6 @@ public class CommandReader {
                 location.printHidingSpots();
                 System.out.println("You can go these places from here:");
                 location.printDirections();
-
             }
         // take command
         } else if (Arrays.asList(takeInput).contains(baseCommand)) {
@@ -248,7 +257,7 @@ public class CommandReader {
                     }
                 }
             }
-            // error handling
+            // error handling for hide
             if (snackCommand == false && hidingSpotCommand == false) {
                 throw new RuntimeException("I don't know what you're trying to hide or where you're trying to hide it");
             } else if (snackCommand == false && hidingSpotCommand == true) {

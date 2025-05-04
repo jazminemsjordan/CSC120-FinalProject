@@ -35,4 +35,8 @@ public class Item extends Thing {
         }
     }
 
+    public void lock() {
+        this.unlocked = false;
+    }
+
 }

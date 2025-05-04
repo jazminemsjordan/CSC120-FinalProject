@@ -39,7 +39,7 @@ public class Player {
                     System.out.println(target.getLongDesc());
                 }
             } else {
-                throw new RuntimeException("You can't go that way right now, but there might be a way to access it.");
+                throw new RuntimeException("There's construction going on that blocks the way to Neilson Lawn. There's a large sign reading: 'no entry without PPE.' You don't want to get hurt!");
             }
         } else {
             throw new RuntimeException("You don't see anywhere to go that way.");            
@@ -54,10 +54,11 @@ public class Player {
         if (itemInventory.contains(i)) {
             if (playerLocation == i.getUseAt()) {
                 itemInventory.remove(i);
+                i.lock();
                 i.use();
             } else {
                 throw new RuntimeException("You can't use that here.");
-        }
+            }
         } else {
             throw new RuntimeException("You don't have one of those.");
         }
@@ -95,12 +96,21 @@ public class Player {
         if (foodInventory.contains(s)) {
             throw new RuntimeException("You already have this snack!");
         } else if (hiddenSnacks.containsKey(s)) {
-            hiddenSnacks.remove(s);
-            foodInventory.add(s);
-            System.out.println("Success! Retrieved from hiding spot. Added " + s.getName() + " to inventory.");
-        } else {
+            // check hiding spot
+            HidingSpot h = s.getStashedAt();
+            Place p = h.getPlace();
+            if (Player.getPlayerLocation() == p) {
+                hiddenSnacks.remove(s);
+                foodInventory.add(s);
+                System.out.println("Success! Retrieved from hiding spot. Added " + s.getName() + " to inventory.");
+            } else {
+                throw new RuntimeException("You can't retrieve snacks from across the map! Go to where you hid it first.");
+            }
+        } else if (Player.getPlayerLocation() == s.getFoundAt()) {
             foodInventory.add(s);
             System.out.println("Success! Added " + s.getName() + " to inventory.");
+        } else {
+            System.out.println("You can't collect a snack from across the map! You have to find it first.");
         }
     }
 
@@ -109,6 +119,13 @@ public class Player {
      * @param i item to take
      */
     public static void takeItem(Item i) {
-
+        if (itemInventory.contains(i)) {
+            throw new RuntimeException("You already have this item!");
+        } else if (i.getUnlocked() == false) {
+            throw new RuntimeException("You already used this item!");
+        } else if (i.getFoundAt() == Player.getPlayerLocation()) {
+            itemInventory.add(i);
+            System.out.println("Success! Added " + i.getName() + " to inventory.");
+        }
     }
 }

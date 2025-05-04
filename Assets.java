@@ -8,16 +8,16 @@ public class Assets {
 
     public static void initializeObjects() {
         //create snacks
-        Snack spaghetti = new Snack("Spaghetti", "prop spaghetti", true, CampusMap.mendenhallCourtyard, 20);
+        Snack spaghetti = new Snack("Spaghetti", "prop spaghetti", false, CampusMap.mendenhallCourtyard, 20);
         Snack sushi = new Snack("Sushi Roll", "compass sushi", true, CampusMap.neilsonLawn, 15);
         Snack donut = new Snack("Maple Bar", "mountain day donut", true, CampusMap.chapinLawn, 12);
         Snack sandwich = new Snack("Grilled Cheese", "grilled cheese sandwich", true, CampusMap.capenGarden, 10);
         Snack bagel = new Snack("Bagel", "sleepy quad student bagel", true, CampusMap.greatQuadrangle, 10);
-        Snack chicken = new Snack("Drumstick", "chicken drumstick", true, CampusMap.greatQuadrangle, 10);
-        Snack cookie = new Snack("Chocolate Chip Cookie", "chapin cookies", true, CampusMap.chapinLawn, 10);
+        Snack chicken = new Snack("Drumstick", "chicken drumstick", false, CampusMap.greatQuadrangle, 10);
+        Snack cookie = new Snack("Chocolate Chip Cookie", "chapin cookies", false, CampusMap.chapinLawn, 10);
         Snack granola = new Snack("Protein Bar", "soccer player granola bar", true, CampusMap.athleticField, 10);
         Snack plum = new Snack("Wild Plum", "wild fruit tree", true, CampusMap.paradiseWoods, 8);
-        Snack berry = new Snack("Wild Raspberries", "a couple wild raspberries", true, CampusMap.paradiseWoods, 7);
+        Snack berry = new Snack("Wild Raspberries", "a couple wild raspberries", false, CampusMap.paradiseWoods, 7);
         Snack apple = new Snack("Apple Core", "garbage can apple core", true, CampusMap.burtonLawn, 5);
         Snack peanut = new Snack("Peanut", "tossed peanut from theater student", true, CampusMap.mendenhallCourtyard, 3);
         // add snacks to master list
@@ -33,6 +33,18 @@ public class Assets {
         masterSnacks.add(berry);
         masterSnacks.add(apple);
         masterSnacks.add(peanut);
+        // create items
+        Item whistle = new Item("Whistle", "A small whistle. You could use these to call for some squirrel friends.", CampusMap.capenGarden, true, CampusMap.paradiseWoods);
+        Item knife = new Item("Pocket Knife", "A tiny pocket knife, perfect for small squirrel paws. Careful, it's sharp!", CampusMap.paradiseWoods, true, CampusMap.greatQuadrangle);
+        Item file = new Item("Nail File", "A little nail file. Could you use this on your claws?", CampusMap.neilsonLawn, true, CampusMap.chapinLawn);
+        Item screwdriver = new Item("Screwdriver", "A small screwdriver. You could get into some real mischief with this!", CampusMap.capenGarden, true, CampusMap.mendenhallCourtyard);
+        Item helmet = new Item("Hard Hat", "A miniature hard hat, perfectly sized for a squirrel. Safety first!", CampusMap.mendenhallCourtyard, true, CampusMap.burtonLawn);
+        // add items to master list
+        masterItems.add(whistle);
+        masterItems.add(knife);
+        masterItems.add(file);
+        masterItems.add(screwdriver);
+        masterItems.add(helmet);
         // create hiding spots
         HidingSpot chapin1 = new HidingSpot("Chapin hiding spot 1", "", CampusMap.chapinLawn, 1.25);
         HidingSpot chapin2 = new HidingSpot("Chapin hiding spot 2", "", CampusMap.chapinLawn, 1.0);
