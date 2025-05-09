@@ -17,7 +17,7 @@ public class Snack extends Thing {
     }
 
     /**
-     * Accessor for snackValue variable
+     * Accessor for snackValue attribute
      * @return base point value of snack
      */
     public int getSnackValue() {
@@ -25,8 +25,9 @@ public class Snack extends Thing {
     }
 
     /**
-     * Accessor for stashedAt variable
-     * @return the hiding spot the snack is hidden at, throws exception if snack isn't hidden
+     * Accessor for stashedAt attribute
+     * @return the hiding spot the snack is hidden at
+     * @throws RuntimeException if the snack isn't hidden
      */
     public HidingSpot getStashedAt() {
         if (Player.hiddenSnacks.containsKey(this)) {

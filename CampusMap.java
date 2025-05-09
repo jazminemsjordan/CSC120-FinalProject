@@ -9,22 +9,31 @@ public class CampusMap {
     static Place capenGarden = new Place("Capen Garden", true, "The garden is quiet and peaceful, mostly empty of students.");
     static Place burtonLawn = new Place("Burton Lawn", true, "This lawn outside the science buildings is mostly empty during mountain day.");
     static Place neilsonLawn = new Place("Neilson Lawn", false, "Outside the library, students sit reading on the lawn.");
-    static Place mendenhallCourtyard = new Place("Mendenhall Courtyard", true, "description");
+    static Place mendenhallCourtyard = new Place("Mendenhall Courtyard", true, "The spacious courtyard is a maze of stairs and greenery.");
     static Place greatQuadrangle = new Place("Great Quadrangle", true, "The quad is packed with students, as usual.");
     static Place athleticField = new Place("Athletic Field", true, "The athletic field is completely deserted: guess the athletes are out celebrating Mountain Day.");
     static Place paradiseWoods = new Place("Paradise Woods", true, "The woods by the pond are serene.");
 
-    /* Empty constructor */
-    // I will only have one map, initialized at the beginning of the program, so a lot of static stuff
+    /**
+     * Empty Constructor
+     * I will only have one map, initialized at the beginning of the program, so mostly static stuff
+     */
     public CampusMap() {
     }
 
+    /**
+     * Method to print out a numbers list of places in the game 
+     * @deprecated
+     */
     public void printDirectory() {
         for (int i = 0; i < places.size(); i ++) {
             System.out.println((i+1) + ". " + places.get(i).getName());
         }
     }
 
+    /**
+     * Method to create game places, their hiding spots, and their exits and directions, and adds each place to a list
+     */
     public static void initializePlaces() { 
         // setting place directions
         chapinLawn.setDirections("north", capenGarden);

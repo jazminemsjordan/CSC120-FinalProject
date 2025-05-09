@@ -20,7 +20,7 @@ abstract class Thing {
     }
 
     /**
-     * Accessor for name variable
+     * Accessor for name attribute
      * @return String name of thing
      */
     public String getName() {
@@ -28,7 +28,7 @@ abstract class Thing {
     }
 
     /**
-     * Accessor for desc variable
+     * Accessor for desc attribute
      * @return String description of thing
      */
     public String getDesc() {
@@ -36,7 +36,7 @@ abstract class Thing {
     }
 
     /**
-     * Accessor for foundAt variable
+     * Accessor for foundAt attribute
      * @return the place the thing is originally found at
      */
     public Place getFoundAt() {
@@ -44,7 +44,7 @@ abstract class Thing {
     }
 
     /**
-     * Accessor for unlocked variable
+     * Accessor for unlocked attribute
      * @return boolean, whether the thing is unlocked and can be taken
      */
     public boolean getUnlocked() {
@@ -53,9 +53,9 @@ abstract class Thing {
 
 
     /** 
-     * Method to unlock thing and allow it to be accessed
+     * Manipulator for unlocked attribute
      */
-    public void unlock() {
-        this.unlocked = true;
+    public void setUnlocked(boolean b) {
+        this.unlocked = b;
     }
 }

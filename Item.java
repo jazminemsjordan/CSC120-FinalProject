@@ -16,7 +16,7 @@ public class Item extends Thing {
     }
 
     /**
-     * Accessor for useAt variable
+     * Accessor for useAt attribute
      * @return Place where item can be used
      */
     public Place getUseAt() {
@@ -24,17 +24,8 @@ public class Item extends Thing {
     }
 
     /**
-     * Method to use item
+     * Manipulator for unlocked attribute (only locks the item, cannot unlock)
      */
-    public void use() {
-        if (this.name == "placeholder") {
-            // use case
-            System.out.println("Successful use message");
-        } else if (this.name == "another placeholder") {
-
-        }
-    }
-
     public void lock() {
         this.unlocked = false;
     }

@@ -1,4 +1,0 @@
-interface PlaceRequirements {
-
-    void go(String direction);
-}

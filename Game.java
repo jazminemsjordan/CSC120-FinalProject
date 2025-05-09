@@ -15,16 +15,18 @@ public class Game {
      * Method to print the game introduction
      */
     public static void printIntroduction() {
-        System.out.println("It's a beautiful fall Mountain Day at Smith College. Birds are singing, the sun is shining, students are frolicking on the lawn and eating donuts—and ");
+        System.out.println("It's a beautiful fall Mountain Day at Smith College. Birds are singing, the sun is shining, students are frolicking on the lawn and eating donuts, and ");
         System.out.println("you, a dastardly campus squirrel, are here to take advantage of the chaos of cancelled classes. Your objective? Collect as much food as possible ");
         System.out.println("throughout campus and stash it to prepare yourself for the unforgiving Massachusetts winter. You will be given points based on how many food ");
         System.out.println("items you collect, their value (bigger, better snacks are worth more), and how well you hide your goodies from other thieving squirrels. Beware! ");
         System.out.println("These point values are hidden until the game is over; you'll have to use your best judgement to make choices. When you've finished your squirrely ");
         System.out.println("escapades, return to your nest in Chapin. I'll tally up your points and reveal how well prepared you are for winter!");
-        System.out.println("INSTRUCTIONS: Use text based commands to interact with the world around you. Helpful commands include go, look, take, and hide.");
-        System.out.println("To move, use the format 'go north' or 'go south'");
-        System.out.println("You can take snacks with 'take [snack name]'");
-        System.out.println("Hide objects in the format 'hide [snack] at [spot number]");
+        System.out.println();
+        System.out.println("TIPS:");
+        System.out.println("    - use the hiding spot descriptions to decide which places are the best to hide something");
+        System.out.println("    - save your best hiding spots for the best food");
+        System.out.println("    - don't hide all your snacks in the same place");
+        System.out.println("    - type 'help' to get a list of commands");
     }
 
     /** 
@@ -64,8 +66,6 @@ public class Game {
             totalPoints = basePoints * 1.1;
         } else if (diversityValue == 8) {
             totalPoints = basePoints * 1.2;
-        } else if (diversityValue > 8) {
-            throw new RuntimeException("Something is wrong.");
         }
         if (Player.hiddenSnacks.size() == 12 && totalPoints < 90) {
             System.out.println("Well, I'll be. You did... well, points for effort, I guess? I'll be honest, I've never seen something like this before.");
@@ -122,11 +122,13 @@ public class Game {
         System.out.println("Initializing game...");
         Assets.initializeObjects();
         CampusMap.initializePlaces();
+        Player.initializeCommands();
         System.out.println("Success!");
         printIntroduction();
         while (end == false) {
             try {
                 CommandReader.readCommand();
+                System.out.println("--------------------------------------------");
                 turns += 1;
             } catch(RuntimeException e) {
                 System.out.println(e.getMessage());
